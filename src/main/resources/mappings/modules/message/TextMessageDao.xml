@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.message.dao.TextMessageDao">
+    
+	<sql id="textMessageColumns">
+		a.id AS "id",
+		a.filepath AS "filepath",
+		a.filetype AS "filetype",
+		a.filename AS "filename",
+		a.extend AS "extend"
+	</sql>
+	
+	<sql id="textMessageJoins">
+	</sql>
+    
+	<select id="get" resultType="TextMessage">
+		SELECT 
+			<include refid="textMessageColumns"/>
+		FROM text_message a
+		<include refid="textMessageJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TextMessage">
+		SELECT 
+			<include refid="textMessageColumns"/>
+		FROM text_message a
+		<include refid="textMessageJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TextMessage">
+		SELECT 
+			<include refid="textMessageColumns"/>
+		FROM text_message a
+		<include refid="textMessageJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO text_message(
+			id,
+			filepath,
+			filetype,
+			filename,
+			extend
+		) VALUES (
+			#{id},
+			#{filepath},
+			#{filetype},
+			#{filename},
+			#{extend}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE text_message SET 	
+			filepath = #{filepath},
+			filetype = #{filetype},
+			filename = #{filename},
+			extend = #{extend}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM text_message
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
